@@ -23,7 +23,7 @@ def check_url(url):
         else:
             print(f"[-] {url} \t {colored('NOT ACCESSIBLE', 'red')}")
     except requests.exceptions.ConnectionError as con_exc:
-        print(f"[-] {url} \t {colored('NOT ACCESSIBLE', 'red')}")
+        print(f"[-] {url} \t {colored('Connection error. If your Internet connection works fine, URL may be considered as NOT ACCESSIBLE', 'yellow')}")
     except requests.exceptions.Timeout as tim_exc:
         print(f"[-] {url} \t {colored('Timeout error.', 'yellow')}")
     except requests.exceptions.RequestException as req_exc:
