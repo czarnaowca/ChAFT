@@ -16,14 +16,19 @@ def check_url(url):
     session.cookies.clear()
 
     try:
-        r = session.get(url, headers=headers)
+        r = session.get(url, headers=headers, timeout=10)
 
         if r.status_code == 200:
             print(f"[+] {url} \t {colored('ACCESSIBLE', 'green')}")
         else:
             print(f"[-] {url} \t {colored('NOT ACCESSIBLE', 'red')}")
-    except requests.exceptions.RequestException as exc:
-        print(f"[*] {url} \t {colored({exc}, 'yellow')}")
+    except requests.exceptions.ConnectionError as con_exc:
+        print(f"[-] {url} \t {colored('NOT ACCESSIBLE', 'red')}")
+    except requests.exceptions.Timeout as tim_exc:
+        print(f"[-] {url} \t {colored('Timeout error.', 'yellow')}")
+    except requests.exceptions.RequestException as req_exc:
+        print(f"[-] {url} \t {colored('Error during requesting this URL.', 'yellow')}")
+
 
 
 def check_from_file(urls_file):
